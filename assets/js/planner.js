@@ -599,38 +599,117 @@ function getActivityColor(type) {
     return colorMap[type] || '#6B7280';
 }
 
-// Export plan as PDF
+// Export plan as a printable page with auto-download
 function exportPlan() {
     // Get current allocations
     const { allocations, practiceAllocations, percentages } = calculateTimeAllocations();
     const schedule = generateWeeklySchedule(allocations, practiceAllocations);
     
-    // Create a temporary visible container for the export
-    const exportContainer = document.createElement('div');
-    exportContainer.className = 'export-container p-4';
-    exportContainer.style.position = 'fixed';
-    exportContainer.style.top = '0';
-    exportContainer.style.left = '0';
-    exportContainer.style.width = '100%';
-    exportContainer.style.background = 'white';
-    exportContainer.style.zIndex = '9999';
+    // Get golfer type text
+    let golferTypeText = "";
+    if (state.golferType < 33) {
+        golferTypeText = "socially-focused";
+    } else if (state.golferType > 66) {
+        golferTypeText = "competitively-focused";
+    } else {
+        golferTypeText = "balanced";
+    }
     
-    // Add content to the export container
-    exportContainer.innerHTML = `
-        <div class="text-center mb-4">
+    // Get mode text
+    const modeText = state.seasonalMode === 'playing' ? 'Playing Season' : 'Grind Mode';
+    
+    // Create a new window for the report
+    const printWindow = window.open('', '_blank');
+    
+    // Set up content with inline styles for better compatibility
+    let content = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Weekly Golf Plan - Weeno Ridge</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                padding: 20px;
+                max-width: 800px;
+                margin: 0 auto;
+                color: #19364B;
+            }
+            .header {
+                text-align: center;
+                margin-bottom: 30px;
+                padding-bottom: 20px;
+                border-bottom: 2px solid #D15B27;
+            }
+            h1, h2, h3 {
+                color: #2D7E7B;
+                font-weight: bold;
+            }
+            .bg-light {
+                background-color: #F6E8CA !important;
+            }
+            .badge {
+                background-color: #2D7E7B;
+            }
+            .table {
+                margin-top: 15px;
+            }
+            .footer {
+                margin-top: 40px;
+                padding-top: 20px;
+                border-top: 1px solid #dee2e6;
+                text-align: center;
+            }
+            .download-message {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background-color: #2D7E7B;
+                color: white;
+                text-align: center;
+                padding: 10px;
+                font-weight: bold;
+            }
+            @media print {
+                .no-print {
+                    display: none;
+                }
+            }
+            .list-group-item {
+                background-color: #F6E8CA;
+                border-color: #D15B27;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="download-message no-print">
+            Your PDF is being prepared for download... You can also print this page or save it manually.
+        </div>
+        
+        <div class="header">
             <h1>Weekly Golf Planner</h1>
-            <div class="text-muted">Weeno Ridge LLC - GolfOS</div>
-            <hr>
+            <div>Weeno Ridge LLC - GolfOS</div>
         </div>
 
-        <div class="mb-4">
+        <section class="mb-4">
             <h2>Your Golf Plan Summary</h2>
             <div class="p-3 bg-light rounded">
-                ${document.getElementById('planSummary').textContent}
+                Based on your ${state.hoursAvailable} hours available this week in ${modeText} with a ${golferTypeText} approach, 
+                you should spend ${formatTime(allocations.playing)} playing golf (${Math.round(percentages.playing)}%), 
+                ${formatTime(allocations.practice)} practicing (${Math.round(percentages.practice)}%), and 
+                ${formatTime(allocations.physicalMental)} on physical/mental preparation (${Math.round(percentages.physicalMental)}%). 
+                Within your practice time, focus ${formatTime(practiceAllocations.driver)} on driver, 
+                ${formatTime(practiceAllocations.approach)} on approach shots, 
+                ${formatTime(practiceAllocations.shortGame)} on short game, and 
+                ${formatTime(practiceAllocations.putting)} on putting.
             </div>
-        </div>
+        </section>
 
-        <div class="mb-4">
+        <section class="mb-4">
             <h2>Weekly Schedule</h2>
             <div class="p-3">
                 <table class="table table-bordered">
@@ -642,74 +721,15 @@ function exportPlan() {
                         </tr>
                     </thead>
                     <tbody>
-                        ${createScheduleTableRows(schedule)}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="mb-4 row">
-            <div class="col-6">
-                <h3>Time Allocation</h3>
-                <div class="p-3">
-                    <ul class="list-group">
-                        ${createTimeAllocationListItems(allocations, percentages)}
-                    </ul>
-                </div>
-            </div>
-            <div class="col-6">
-                <h3>Practice Focus</h3>
-                <div class="p-3">
-                    <ul class="list-group">
-                        ${createPracticeFocusListItems(practiceAllocations)}
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-5 pt-3 border-top text-center">
-            <p>Created on ${new Date().toLocaleDateString()}</p>
-            <p class="text-muted small">Visit weenoridge.com for more golf improvement resources</p>
-        </div>
     `;
     
-    // Append to the body temporarily
-    document.body.appendChild(exportContainer);
-    
-    // Configure html2pdf options
-    const opt = {
-        margin: 1,
-        filename: 'WeeklyGolfPlan.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
-            scale: 2,
-            useCORS: true,
-            logging: true 
-        },
-        jsPDF: { unit: 'cm', format: 'a4', orientation: 'portrait' }
-    };
-    
-    // Create and download PDF
-    html2pdf().set(opt).from(exportContainer).save().then(() => {
-        // Clean up: remove element after download
-        document.body.removeChild(exportContainer);
-    }).catch(error => {
-        console.error('Error generating PDF:', error);
-        alert('There was an error generating your PDF. Please try again.');
-        document.body.removeChild(exportContainer);
-    });
-}
-
-// Helper function to create schedule table rows
-function createScheduleTableRows(schedule) {
+    // Add schedule rows
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    let html = '';
-    
     days.forEach(day => {
         const dayItems = schedule.filter(item => item.day === day);
         
         if (dayItems.length > 0) {
-            html += `<tr>
+            content += `<tr>
                 <td>${day}</td>
                 <td>
                     <ul class="mb-0">
@@ -719,37 +739,56 @@ function createScheduleTableRows(schedule) {
                 <td>${dayItems.reduce((sum, item) => sum + (item.time || 0), 0).toFixed(1)} hrs</td>
             </tr>`;
         } else {
-            html += `<tr>
+            content += `<tr>
                 <td>${day}</td>
-                <td colspan="2" class="text-muted text-center">Rest Day</td>
+                <td colspan="2" class="text-center text-muted">Rest Day</td>
             </tr>`;
         }
     });
     
-    return html;
-}
+    content += `
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-// Helper function to create time allocation list items
-function createTimeAllocationListItems(allocations, percentages) {
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h3>Time Allocation</h3>
+                <div class="p-3">
+                    <ul class="list-group">
+    `;
+    
+    // Add time allocation items
     const items = [
         { name: 'Playing', value: allocations.playing, percent: Math.round(percentages.playing) },
         { name: 'Practice', value: allocations.practice, percent: Math.round(percentages.practice) },
         { name: 'Physical/Mental', value: allocations.physicalMental, percent: Math.round(percentages.physicalMental) }
     ];
     
-    return items.map(item => `
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <span>${item.name}</span>
-            <span>
-                <strong>${formatTime(item.value)}</strong>
-                <span class="badge bg-primary rounded-pill ms-2">${item.percent}%</span>
-            </span>
-        </li>
-    `).join('');
-}
-
-// Helper function to create practice focus list items
-function createPracticeFocusListItems(practiceAllocations) {
+    items.forEach(item => {
+        content += `
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>${item.name}</span>
+                <span>
+                    <strong>${formatTime(item.value)}</strong>
+                    <span class="badge rounded-pill ms-2">${item.percent}%</span>
+                </span>
+            </li>
+        `;
+    });
+    
+    content += `
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3>Practice Focus</h3>
+                <div class="p-3">
+                    <ul class="list-group">
+    `;
+    
+    // Add practice focus items
     const practiceItems = [
         { name: 'Driver', value: practiceAllocations.driver },
         { name: 'Approach', value: practiceAllocations.approach },
@@ -757,12 +796,57 @@ function createPracticeFocusListItems(practiceAllocations) {
         { name: 'Putting', value: practiceAllocations.putting }
     ].sort((a, b) => b.value - a.value);
     
-    return practiceItems.map(item => `
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <span>${item.name}</span>
-            <strong>${formatTime(item.value)}</strong>
-        </li>
-    `).join('');
+    practiceItems.forEach(item => {
+        content += `
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>${item.name}</span>
+                <strong>${formatTime(item.value)}</strong>
+            </li>
+        `;
+    });
+    
+    content += `
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Created on ${new Date().toLocaleDateString()}</p>
+            <p class="text-muted small">Visit weenoridge.com for more golf improvement resources</p>
+            <button class="btn btn-primary no-print" onclick="window.print()">Print</button>
+            <button class="btn btn-secondary no-print" onclick="window.close()">Close</button>
+        </div>
+        
+        <script>
+            // Auto-download as PDF after short delay
+            setTimeout(function() {
+                const element = document.body;
+                html2pdf()
+                    .set({
+                        margin: 1,
+                        filename: 'WeeklyGolfPlan.pdf',
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2, useCORS: true },
+                        jsPDF: { unit: 'cm', format: 'a4', orientation: 'portrait' }
+                    })
+                    .from(element)
+                    .save();
+                
+                // Update message
+                document.querySelector('.download-message').textContent = 
+                    'Your PDF download has started. You can close this window after the download is complete.';
+            }, 1500);
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    </body>
+    </html>
+    `;
+    
+    // Write content to the new window
+    printWindow.document.open();
+    printWindow.document.write(content);
+    printWindow.document.close();
 }
 
 // Initialize the application when the DOM is loaded
