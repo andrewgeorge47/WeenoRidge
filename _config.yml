@@ -5,19 +5,18 @@ description: >-
   Weeno Ridge LLC is the parent company for several interconnected initiatives 
   that combine science engagement, community development, and personal growth.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://weenoridge.com" # your domain
-github_username: andrewgeorge47
+url: "https://yourdomainname.com" # your domain
 
 # Build settings
-theme: minima
+markdown: kramdown
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
-# Navigation
-header_pages:
-  - measured.md
-  - neighborhood.md
-  - golfos.md
-  - about.md
-  - contact.md
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .gitignore
