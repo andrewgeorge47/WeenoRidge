@@ -47,6 +47,13 @@
   <!-- Conditional scripts based on page layout -->
   {% if page.layout == 'planner' %}
   <script src="{{ '/assets/js/planner.js' | relative_url }}"></script>
+  <script>
+    // Make console visible for debugging
+    window.onerror = function(message, source, lineno, colno, error) {
+      alert('Error: ' + message);
+      return true;
+    };
+  </script>
   {% endif %}
 </body>
 </html>
