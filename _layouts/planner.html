@@ -1,0 +1,209 @@
+---
+layout: default
+---
+
+<div class="planner-container">
+    <h1 class="text-center mb-4">Weekly Golf Planner</h1>
+    
+    <!-- User Input Panel -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <label class="form-label">Total hours available this week</label>
+                    <span class="badge bg-primary fs-6" id="hoursDisplay">5 hrs</span>
+                </div>
+                
+                <input
+                    type="range"
+                    class="form-range"
+                    min="1"
+                    max="20"
+                    value="5"
+                    id="hoursSlider"
+                >
+                <div class="d-flex justify-content-between">
+                    <small class="text-muted">1 hr</small>
+                    <small class="text-muted">5</small>
+                    <small class="text-muted">10</small>
+                    <small class="text-muted">15</small>
+                    <small class="text-muted">20 hrs</small>
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <label class="form-label d-block mb-3">Select seasonal mode:</label>
+                <div class="d-flex justify-content-center align-items-center">
+                    <span class="me-3 season-label" id="playingLabel">Playing Season</span>
+                    
+                    <div class="form-check form-switch">
+                        <input
+                            class="form-check-input custom-toggle"
+                            type="checkbox"
+                            id="seasonToggle"
+                        >
+                    </div>
+                    
+                    <span class="ms-3 season-label" id="grindLabel">Grind Mode</span>
+                </div>
+                
+                <div class="text-center mt-2">
+                    <span class="badge" id="currentMode">Currently in: Playing Season</span>
+                </div>
+            </div>
+            
+            <!-- Days Per Week Selector -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <label class="form-label">Days available per week</label>
+                    <span class="badge bg-primary" id="daysDisplay">3 days</span>
+                </div>
+                
+                <div class="d-flex justify-content-between gap-2" id="daysButtonContainer">
+                    <!-- Day buttons will be added here -->
+                </div>
+            </div>
+            
+            <!-- Golfer Type Slider -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <label class="form-label">Golfer Profile</label>
+                    <div class="d-flex">
+                        <span class="badge me-1" id="socialBadge">Social</span>
+                        <span class="badge mx-1" id="balancedBadge">Balanced</span>
+                        <span class="badge ms-1" id="competitiveBadge">Competitive</span>
+                    </div>
+                </div>
+                
+                <div class="position-relative slider-container">
+                    <div class="golfer-slider-bg"></div>
+                    <input
+                        type="range"
+                        class="form-range"
+                        min="0"
+                        max="100"
+                        value="50"
+                        id="golferSlider"
+                    >
+                </div>
+                
+                <div class="mt-3 p-3 bg-light rounded">
+                    <p class="mb-0 small" id="profileDescription">
+                        <span class="fw-bold text-info">Balanced Approach:</span> You want to improve while keeping golf enjoyable. Your plan provides a well-rounded mix of playing, structured practice, and preparation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Results Display -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title mb-4">Your Weekly Golf Plan</h2>
+            
+            <!-- Text Summary -->
+            <div class="p-3 bg-light rounded mb-4">
+                <p class="mb-0" id="planSummary">
+                    <!-- Summary text will be inserted here -->
+                </p>
+            </div>
+            
+            <!-- Charts -->
+            <div class="row mb-4">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h3 class="card-title text-center mb-4">Overall Time Allocation</h3>
+                            
+                            <div class="chart-container">
+                                <canvas id="overallChart"></canvas>
+                                <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                    <span class="fs-4 fw-bold d-block" id="totalHoursDisplay">5 hrs</span>
+                                    <span class="small text-muted">total</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4" id="overallLegend">
+                                <!-- Legend items will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h3 class="card-title text-center mb-4">Practice Breakdown</h3>
+                            
+                            <div class="chart-container">
+                                <canvas id="practiceChart"></canvas>
+                            </div>
+                            
+                            <div class="mt-3 p-3 bg-light rounded">
+                                <p class="small mb-0" id="practiceInsight">
+                                    <!-- Practice insight will be inserted here -->
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Weekly Schedule -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="card-title">Suggested Weekly Schedule</h3>
+                    <span class="text-primary cursor-pointer small">Optimize Schedule</span>
+                </div>
+                
+                <div class="row mb-2" id="dayLabels">
+                    <!-- Day labels will be inserted here -->
+                </div>
+                
+                <div class="row" id="scheduleContainer">
+                    <!-- Schedule will be inserted here -->
+                </div>
+            </div>
+            
+            <!-- Export Options -->
+            <div class="text-center mt-4">
+                <button class="btn btn-primary" id="exportBtn">
+                    Export Plan
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tooltips Section -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title mb-4">Tips & Definitions</h2>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="p-3 bg-light rounded h-100">
+                        <h4 class="text-primary mb-2">Playing Season</h4>
+                        <p class="small mb-0">The main golf season when weather is favorable and you're actively playing courses. Focus on course time with strategic practice.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="p-3 bg-light rounded h-100">
+                        <h4 class="text-success mb-2">Grind Mode</h4>
+                        <p class="small mb-0">Focus on technical improvement and skill development during off-season or when working on specific improvements to your game.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="p-3 bg-light rounded h-100">
+                        <h4 class="text-primary mb-2">What counts as Short Game?</h4>
+                        <p class="small mb-0">Chips, pitches, bunker shots, and any shots within 50 yards of the green.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="p-3 bg-light rounded h-100">
+                        <h4 class="text-primary mb-2">Physical/Mental Prep</h4>
+                        <p class="small mb-0">Includes fitness, mobility work, visualization, course strategy planning, and mental routines.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
