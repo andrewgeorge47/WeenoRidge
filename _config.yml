@@ -1,11 +1,11 @@
 # Site settings
 title: Weeno Ridge LLC
-email: contact@weeno-ridge.com
+email: andrewgeorge47@gmail.com
 description: >-
   Weeno Ridge LLC is the parent company for several interconnected initiatives 
   that combine science engagement, community development, and personal growth.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://yourdomainname.com" # your domain
+url: "https://weenoridge.com" # your domain
 
 # Build settings
 markdown: kramdown
