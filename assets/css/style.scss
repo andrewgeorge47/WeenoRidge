@@ -1,13 +1,22 @@
 ---
 ---
 
-// Variables
-$primary-color: #2c5282;
-$secondary-color: #38a169;
-$text-color: #2d3748;
-$light-bg: #f7fafc;
-$font-heading: 'Arvo', serif;
-$font-body: 'Work Sans', sans-serif;
+:root {
+  --primary-color: #2c5282;
+  --secondary-color: #38a169;
+  --text-color: #2d3748;
+  --light-bg: #f7fafc;
+  --font-heading: 'Arvo', serif;
+  --font-body: 'Work Sans', sans-serif;
+}
+
+// SCSS variables for backward compatibility
+$primary-color: var(--primary-color);
+$secondary-color: var(--secondary-color);
+$text-color: var(--text-color);
+$light-bg: var(--light-bg);
+$font-heading: var(--font-heading);
+$font-body: var(--font-body);
 
 // Base styles
 * {
