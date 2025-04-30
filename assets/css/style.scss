@@ -10,14 +10,6 @@
   --font-body: 'Work Sans', sans-serif;
 }
 
-// SCSS variables for backward compatibility
-$primary-color: var(--primary-color);
-$secondary-color: var(--secondary-color);
-$text-color: var(--text-color);
-$light-bg: var(--light-bg);
-$font-heading: var(--font-heading);
-$font-body: var(--font-body);
-
 // Base styles
 * {
   box-sizing: border-box;
