@@ -69,7 +69,7 @@ function setupEventListeners() {
     
     // Export button
     document.getElementById('exportBtn').addEventListener('click', () => {
-        alert('Export functionality would be implemented here in a real application.');
+        exportPlan();
     });
 }
 
@@ -597,6 +597,165 @@ function getActivityColor(type) {
     };
     
     return colorMap[type] || '#6B7280';
+}
+
+// Export plan as PDF
+function exportPlan() {
+    // Get current allocations
+    const { allocations, practiceAllocations, percentages } = calculateTimeAllocations();
+    const schedule = generateWeeklySchedule(allocations, practiceAllocations);
+    
+    // Update export template with current data
+    document.getElementById('exportSummary').textContent = document.getElementById('planSummary').textContent;
+    document.getElementById('exportDate').textContent = new Date().toLocaleDateString();
+    
+    // Create time allocation list
+    const timeAllocationDiv = document.getElementById('exportTimeAllocation');
+    timeAllocationDiv.innerHTML = '';
+    const timeAllocationList = document.createElement('ul');
+    timeAllocationList.className = 'list-group';
+    
+    const items = [
+        { name: 'Playing', value: allocations.playing, percent: Math.round(percentages.playing) },
+        { name: 'Practice', value: allocations.practice, percent: Math.round(percentages.practice) },
+        { name: 'Physical/Mental', value: allocations.physicalMental, percent: Math.round(percentages.physicalMental) }
+    ];
+    
+    items.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item d-flex justify-content-between align-items-center';
+        li.innerHTML = `
+            <span>${item.name}</span>
+            <span>
+                <strong>${formatTime(item.value)}</strong>
+                <span class="badge bg-primary rounded-pill ms-2">${item.percent}%</span>
+            </span>
+        `;
+        timeAllocationList.appendChild(li);
+    });
+    
+    timeAllocationDiv.appendChild(timeAllocationList);
+    
+    // Create practice focus list
+    const practiceFocusDiv = document.getElementById('exportPracticeFocus');
+    practiceFocusDiv.innerHTML = '';
+    const practiceFocusList = document.createElement('ul');
+    practiceFocusList.className = 'list-group';
+    
+    const practiceItems = [
+        { name: 'Driver', value: practiceAllocations.driver },
+        { name: 'Approach', value: practiceAllocations.approach },
+        { name: 'Short Game', value: practiceAllocations.shortGame },
+        { name: 'Putting', value: practiceAllocations.putting }
+    ].sort((a, b) => b.value - a.value);
+    
+    practiceItems.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item d-flex justify-content-between align-items-center';
+        li.innerHTML = `
+            <span>${item.name}</span>
+            <strong>${formatTime(item.value)}</strong>
+        `;
+        practiceFocusList.appendChild(li);
+    });
+    
+    practiceFocusDiv.appendChild(practiceFocusList);
+    
+    // Create schedule table
+    const scheduleDiv = document.getElementById('exportSchedule');
+    scheduleDiv.innerHTML = '';
+    
+    const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const table = document.createElement('table');
+    table.className = 'table table-bordered';
+    
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    
+    const dayHeader = document.createElement('th');
+    dayHeader.textContent = 'Day';
+    headerRow.appendChild(dayHeader);
+    
+    const activitiesHeader = document.createElement('th');
+    activitiesHeader.textContent = 'Activities';
+    headerRow.appendChild(activitiesHeader);
+    
+    const timeHeader = document.createElement('th');
+    timeHeader.textContent = 'Time';
+    headerRow.appendChild(timeHeader);
+    
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    
+    const tbody = document.createElement('tbody');
+    
+    days.forEach(day => {
+        const dayItems = schedule.filter(item => item.day === day);
+        
+        if (dayItems.length > 0) {
+            const row = document.createElement('tr');
+            
+            const dayCell = document.createElement('td');
+            dayCell.textContent = day;
+            row.appendChild(dayCell);
+            
+            const activitiesCell = document.createElement('td');
+            const activitiesList = document.createElement('ul');
+            activitiesList.className = 'mb-0';
+            
+            dayItems.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item.activity;
+                activitiesList.appendChild(li);
+            });
+            
+            activitiesCell.appendChild(activitiesList);
+            row.appendChild(activitiesCell);
+            
+            const timeCell = document.createElement('td');
+            const totalHours = dayItems.reduce((sum, item) => sum + (item.time || 0), 0);
+            timeCell.textContent = `${totalHours.toFixed(1)} hrs`;
+            row.appendChild(timeCell);
+            
+            tbody.appendChild(row);
+        } else {
+            const row = document.createElement('tr');
+            
+            const dayCell = document.createElement('td');
+            dayCell.textContent = day;
+            row.appendChild(dayCell);
+            
+            const restCell = document.createElement('td');
+            restCell.textContent = 'Rest Day';
+            restCell.colSpan = 2;
+            restCell.className = 'text-muted text-center';
+            row.appendChild(restCell);
+            
+            tbody.appendChild(row);
+        }
+    });
+    
+    table.appendChild(tbody);
+    scheduleDiv.appendChild(table);
+    
+    // Get the template
+    const element = document.getElementById('exportTemplate').cloneNode(true);
+    element.style.display = 'block';
+    
+    // Configure html2pdf options
+    const opt = {
+        margin: 1,
+        filename: 'WeeklyGolfPlan.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'cm', format: 'a4', orientation: 'portrait' }
+    };
+    
+    // Create and download PDF
+    html2pdf().set(opt).from(element).save().then(() => {
+        // Clean up: remove element after download
+        element.style.display = 'none';
+    });
 }
 
 // Initialize the application when the DOM is loaded

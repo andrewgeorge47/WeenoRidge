@@ -167,3 +167,31 @@
         margin-bottom: 1.5rem;
     }
 }
+
+/* Export Template Styles */
+.export-container {
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: 'Work Sans', sans-serif;
+    color: #19364B;
+}
+
+#exportTemplate h1,
+#exportTemplate h2,
+#exportTemplate h3 {
+    font-family: 'Arvo', serif;
+    color: #2D7E7B;
+}
+
+#exportTemplate .bg-light {
+    background-color: #F6E8CA !important;
+}
+
+#exportTemplate hr {
+    border-color: #D15B27;
+    opacity: 0.5;
+}
+
+#exportTemplate .badge {
+    background-color: #2D7E7B;
+}
