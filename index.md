@@ -12,9 +12,16 @@ title: Weeno Ridge LLC
   <div class="planet planet2"></div>
   
   <div class="container">
-    <h1>Welcome to Weeno Ridge LLC</h1>
-    <p>Combining science engagement, community development, and personal growth through our interconnected initiatives.</p>
-    <a href="/about" class="btn">Learn More About Us</a>
+    <div class="hero-content">
+      <div class="hero-image">
+        <img src="/assets/images/weeno-ridge-logo.jpg" alt="Weeno Ridge - Fox with telescope looking at stars">
+      </div>
+      <div class="hero-text">
+        <h1>Welcome to Weeno Ridge LLC</h1>
+        <p>Combining science engagement, community development, and personal growth through our interconnected initiatives.</p>
+        <a href="/about" class="btn">Learn More About Us</a>
+      </div>
+    </div>
   </div>
 </div>
 
