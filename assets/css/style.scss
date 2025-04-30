@@ -1,0 +1,190 @@
+/* Base Styles */
+:root {
+  --navy: #19364B;
+  --teal: #2D7E7B;
+  --light-teal: #6BBCB3;
+  --orange: #D15B27;
+  --cream: #F6E8CA;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Work Sans', sans-serif;
+  color: var(--navy);
+  background-color: var(--cream);
+  line-height: 1.6;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Arvo', serif;
+  margin-bottom: 1rem;
+  color: var(--navy);
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--teal);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--orange);
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Header Styles */
+.site-header {
+  background-color: var(--navy);
+  padding: 1rem 0;
+  color: var(--cream);
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-logo a {
+  display: flex;
+  align-items: center;
+  color: var(--cream);
+}
+
+.site-title {
+  font-family: 'Arvo', serif;
+  font-size: 1.5rem;
+  margin-left: 1rem;
+}
+
+.site-nav ul {
+  display: flex;
+}
+
+.site-nav li {
+  margin-left: 1.5rem;
+}
+
+.site-nav a {
+  color: var(--cream);
+  font-weight: 500;
+}
+
+.site-nav a:hover, .site-nav a.active {
+  color: var(--light-teal);
+}
+
+/* Footer Styles */
+.site-footer {
+  background-color: var(--navy);
+  color: var(--cream);
+  padding: 3rem 0 1rem;
+  margin-top: 3rem;
+}
+
+.footer-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footer-column h3 {
+  color: var(--cream);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.footer-column ul {
+  margin-bottom: 1rem;
+}
+
+.footer-column li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-column a {
+  color: var(--light-teal);
+}
+
+.btn-small {
+  display: inline-block;
+  background-color: var(--orange);
+  color: var(--cream);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Content Pages */
+.site-content {
+  padding: 2rem 0;
+}
+
+.page-header {
+  background-color: var(--teal);
+  color: var(--cream);
+  padding: 3rem 0;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.page-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .site-header .container {
+    flex-direction: column;
+  }
+  
+  .site-logo {
+    margin-bottom: 1rem;
+  }
+  
+  .site-nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .site-nav li {
+    margin: 0.5rem;
+  }
+}
