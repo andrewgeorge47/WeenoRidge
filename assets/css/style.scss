@@ -1,11 +1,19 @@
 ---
 ---
 
-// Pure SCSS variables (no CSS custom properties)
-$primary-color: #2c5282;
-$secondary-color: #38a169;
-$text-color: #2d3748;
-$light-bg: #f7fafc;
+// Brand Color Variables
+$navy: #19364B;
+$teal: #2D7E7B;
+$light-teal: #6BBCB3;
+$orange: #D15B27;
+$cream: #F6E8CA;
+
+// Functional Variables
+$primary-color: $teal;
+$secondary-color: $orange;
+$accent-color: $light-teal;
+$text-color: $navy;
+$light-bg: $cream;
 $font-heading: 'Arvo', serif;
 $font-body: 'Work Sans', sans-serif;
 
@@ -20,15 +28,17 @@ body {
   font-family: $font-body;
   color: $text-color;
   line-height: 1.6;
+  background-color: white;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $font-heading;
   margin-bottom: 1rem;
+  color: $primary-color;
 }
 
 a {
-  color: $primary-color;
+  color: $secondary-color;
   text-decoration: none;
   
   &:hover {
@@ -45,7 +55,7 @@ a {
 
 // Header
 .site-header {
-  background-color: white;
+  background-color: $cream;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   padding: 1rem 0;
   
@@ -61,7 +71,7 @@ a {
     font-weight: 700;
     
     a {
-      color: $primary-color;
+      color: $secondary-color;
     }
   }
   
@@ -77,7 +87,7 @@ a {
           color: $text-color;
           
           &.active {
-            color: $primary-color;
+            color: $secondary-color;
             font-weight: 500;
           }
         }
@@ -98,7 +108,7 @@ a {
   margin-bottom: 2rem;
   
   h1 {
-    color: $primary-color;
+    color: $secondary-color;
   }
 }
 
@@ -119,38 +129,167 @@ a {
 
 // Home page
 .hero {
-  background-color: $primary-color;
-  color: white;
-  padding: 4rem 0;
+  background-color: $navy;
+  color: $cream;
+  padding: 5rem 0;
   margin-bottom: 3rem;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.5;
+  }
   
   h1 {
-    color: white;
+    color: $cream;
     font-size: 2.5rem;
     margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
   }
   
   p {
     font-size: 1.2rem;
     max-width: 700px;
     margin: 0 auto 2rem;
+    position: relative;
+    z-index: 2;
   }
   
   .btn {
     display: inline-block;
     background-color: $secondary-color;
-    color: white;
+    color: $cream;
     padding: 0.75rem 1.5rem;
     border-radius: 4px;
     font-weight: 500;
     transition: background-color 0.3s;
+    position: relative;
+    z-index: 2;
     
     &:hover {
       background-color: darken($secondary-color, 10%);
       text-decoration: none;
     }
   }
+  
+  &.space-theme {
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    
+    .container {
+      width: 100%;
+      position: relative;
+      z-index: 5;
+    }
+    
+    .star {
+      position: absolute;
+      background-color: $cream;
+      border-radius: 50%;
+      animation: twinkle 4s infinite;
+      z-index: 1;
+      
+      &.star1 {
+        width: 3px;
+        height: 3px;
+        top: 15%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+      
+      &.star2 {
+        width: 4px;
+        height: 4px;
+        top: 25%;
+        left: 80%;
+        animation-delay: 0.5s;
+      }
+      
+      &.star3 {
+        width: 2px;
+        height: 2px;
+        top: 60%;
+        left: 15%;
+        animation-delay: 1s;
+      }
+      
+      &.star4 {
+        width: 5px;
+        height: 5px;
+        top: 70%;
+        left: 90%;
+        animation-delay: 1.5s;
+      }
+    }
+    
+    .planet {
+      position: absolute;
+      border-radius: 50%;
+      z-index: 1;
+      
+      &.planet1 {
+        width: 80px;
+        height: 80px;
+        background-color: $light-teal;
+        top: 20%;
+        right: 15%;
+        box-shadow: inset -10px -10px 0 rgba(0,0,0,0.2);
+        
+        &::after {
+          content: "";
+          position: absolute;
+          width: 18px;
+          height: 18px;
+          background-color: darken($light-teal, 15%);
+          border-radius: 50%;
+          top: 25%;
+          left: 20%;
+          box-shadow: 
+            20px 15px 0 -4px darken($light-teal, 20%),
+            40px 30px 0 -2px darken($light-teal, 25%);
+        }
+      }
+      
+      &.planet2 {
+        width: 120px;
+        height: 120px;
+        overflow: hidden;
+        background-color: $orange;
+        bottom: -30px;
+        left: 10%;
+        opacity: 0.6;
+        
+        &::before {
+          content: "";
+          position: absolute;
+          width: 140%;
+          height: 30px;
+          background-color: rgba($cream, 0.2);
+          top: 40%;
+          left: -20%;
+          transform: rotate(-20deg);
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { opacity: 0.3; }
 }
 
 .initiative-list {
@@ -171,7 +310,7 @@ a {
     }
     
     h3 {
-      color: $primary-color;
+      color: $secondary-color;
     }
     
     a {
@@ -185,12 +324,12 @@ a {
 .cta-section {
   text-align: center;
   padding: 3rem 0;
-  border-top: 1px solid #edf2f7;
+  border-top: 1px solid rgba($navy, 0.1);
   
   .btn {
     display: inline-block;
-    background-color: $primary-color;
-    color: white;
+    background-color: $secondary-color;
+    color: $cream;
     padding: 0.75rem 1.5rem;
     border-radius: 4px;
     font-weight: 500;
@@ -198,7 +337,7 @@ a {
     transition: background-color 0.3s;
     
     &:hover {
-      background-color: darken($primary-color, 10%);
+      background-color: darken($secondary-color, 10%);
       text-decoration: none;
     }
   }
@@ -246,7 +385,7 @@ a {
     input, select, textarea {
       width: 100%;
       padding: 0.75rem;
-      border: 1px solid #e2e8f0;
+      border: 1px solid rgba($navy, 0.2);
       border-radius: 4px;
       font-family: $font-body;
       
@@ -259,8 +398,8 @@ a {
   }
   
   .submit-btn {
-    background-color: $primary-color;
-    color: white;
+    background-color: $secondary-color;
+    color: $cream;
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 4px;
@@ -269,28 +408,28 @@ a {
     transition: background-color 0.3s;
     
     &:hover {
-      background-color: darken($primary-color, 10%);
+      background-color: darken($secondary-color, 10%);
     }
   }
 }
 
 // Footer
 .site-footer {
-  background-color: #2d3748;
-  color: white;
+  background-color: $navy;
+  color: $cream;
   padding: 3rem 0 1rem;
   
   a {
-    color: white;
+    color: $light-teal;
     text-decoration: underline;
     
     &:hover {
-      color: darken(white, 10%);
+      color: lighten($light-teal, 10%);
     }
   }
   
   h3 {
-    color: $secondary-color;
+    color: $orange;
     margin-bottom: 1rem;
   }
   
@@ -312,7 +451,7 @@ a {
   }
   
   .footer-copyright {
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba($cream, 0.1);
     padding-top: 1rem;
     text-align: center;
     font-size: 0.9rem;

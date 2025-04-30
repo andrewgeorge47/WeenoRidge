@@ -3,7 +3,14 @@ layout: default
 title: Weeno Ridge LLC
 ---
 
-<div class="hero">
+<div class="hero space-theme">
+  <div class="star star1"></div>
+  <div class="star star2"></div>
+  <div class="star star3"></div>
+  <div class="star star4"></div>
+  <div class="planet planet1"></div>
+  <div class="planet planet2"></div>
+  
   <div class="container">
     <h1>Welcome to Weeno Ridge LLC</h1>
     <p>Combining science engagement, community development, and personal growth through our interconnected initiatives.</p>
