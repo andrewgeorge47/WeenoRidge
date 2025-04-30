@@ -1,18 +1,19 @@
 <header class="site-header">
-    <div class="container">
-      <div class="logo">
-        <a href="/">Weeno Ridge</a>
-      </div>
-      
-      <nav class="main-nav">
-        <ul>
-          <li><a href="/" {% if page.url == '/' %}class="active"{% endif %}>Home</a></li>
-          <li><a href="/measured" {% if page.url == '/measured/' %}class="active"{% endif %}>Measured</a></li>
-          <li><a href="/neighborhood" {% if page.url == '/neighborhood/' %}class="active"{% endif %}>Neighborhood National</a></li>
-          <li><a href="/golfos" {% if page.url == '/golfos/' %}class="active"{% endif %}>GolfOS</a></li>
-          <li><a href="/about" {% if page.url == '/about/' %}class="active"{% endif %}>About</a></li>
-          <li><a href="/contact" {% if page.url == '/contact/' %}class="active"{% endif %}>Contact</a></li>
-        </ul>
-      </nav>
+  <div class="container">
+    <div class="logo">
+      <a href="/">Weeno Ridge</a>
     </div>
-  </header>
+    
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/" {% if page.url == '/' %}class="active"{% endif %}>Home</a></li>
+        <li><a href="/measured" {% if page.url == '/measured/' %}class="active"{% endif %}>Measured</a></li>
+        <li><a href="/neighborhood" {% if page.url == '/neighborhood/' %}class="active"{% endif %}>Neighborhood National</a></li>
+        <li><a href="/golfos" {% if page.url == '/golfos/' %}class="active"{% endif %}>GolfOS</a></li>
+        <li><a href="/planner" {% if page.url == '/planner/' %}class="active"{% endif %}>Golf Planner</a></li>
+        <li><a href="/about" {% if page.url == '/about/' %}class="active"{% endif %}>About</a></li>
+        <li><a href="/contact" {% if page.url == '/contact/' %}class="active"{% endif %}>Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
