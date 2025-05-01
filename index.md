@@ -53,4 +53,12 @@ title: Weeno Ridge LLC
     <p>We'd love to hear from you about any of our initiatives.</p>
     <a href="/contact" class="btn">Contact Us</a>
   </div>
+  <hr>
+<section>
+  <h3>Innovation Mobile Lab: Program and Brand Ownership</h3>
+  <p style="max-width: 800px;">
+    The Innovation Mobile Lab brand and educational programming were created and are operated by Weeno Ridge LLC. While the mobile vehicle was generously funded by United Way of Franklin County, Weeno Ridge independently developed the Innovation Lab's public services, curriculum, and operational model. We retain full ownership of the Innovation Mobile Lab name, identity, and community engagement activities. The Innovation Mobile Lab is a Weeno Ridge program, hosted independently at [innovationmobilelab.com](https://innovationmobilelab.com).
+  </p>
+</section>
+
 </div>
