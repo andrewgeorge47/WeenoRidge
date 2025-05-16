@@ -43,6 +43,214 @@ head: |
       --highlight-post: #7c3aed;
     }
 
+    /* Mobile-first base styles */
+    .theory-container {
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--bg-page);
+    }
+
+    .theory-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      width: 100%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .theory-card h3 {
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .theory-card h4 {
+      color: var(--text-body);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .theory-card p {
+      color: var(--text-body);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .explore-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      width: 100%;
+      max-width: 200px;
+    }
+
+    .explore-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(26, 86, 219, 0.1);
+    }
+
+    .back-btn {
+      background: var(--text-light);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      width: 100%;
+      max-width: 200px;
+    }
+
+    .back-btn:hover {
+      background: var(--text-body);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #theory-root {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 1.5rem;
+      width: 100%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Responsive styles for larger screens */
+    @media (min-width: 640px) {
+      .theory-container {
+        padding: 2rem;
+      }
+
+      .theory-card {
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .theory-card h3 {
+        font-size: 1.5rem;
+      }
+
+      .theory-card h4 {
+        font-size: 1.2rem;
+      }
+
+      .theory-card p {
+        font-size: 1rem;
+      }
+
+      .explore-btn, .back-btn {
+        width: auto;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .theory-container {
+        padding: 4rem 2rem;
+      }
+
+      .theory-card {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #theory-root {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+    }
+
+    /* Table responsive styles */
+    .work-section table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 1.5rem 0;
+      border: 1px solid var(--table-border);
+      border-radius: 8px;
+      overflow-x: auto;
+      display: block;
+    }
+
+    .work-section th,
+    .work-section td {
+      padding: 0.75rem;
+      min-width: 120px;
+    }
+
+    @media (min-width: 640px) {
+      .work-section table {
+        display: table;
+      }
+
+      .work-section th,
+      .work-section td {
+        padding: 1rem;
+      }
+    }
+
+    /* Dual nature grid responsive styles */
+    .dual-nature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    @media (min-width: 640px) {
+      .dual-nature-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+    }
+
+    /* Quote box responsive styles */
+    .quote-box {
+      padding: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    @media (min-width: 640px) {
+      .quote-box {
+        padding: 1.5rem;
+        margin: 2rem 0;
+      }
+    }
+
+    /* TL;DR section responsive styles */
+    .tldr-section {
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    @media (min-width: 640px) {
+      .tldr-section {
+        padding: 2rem;
+        margin: 2rem 0;
+      }
+    }
+
     .theory-container {
       padding: 4rem 2rem;
       max-width: 1200px;
