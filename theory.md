@@ -156,9 +156,11 @@ head: |
       background: var(--bg-card);
       border: 1px solid var(--border-light);
       border-radius: 8px;
-      padding: 1.5rem;
+      padding: 0.5rem;
       width: 100%;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+      margin: 0;
+      max-width: 100%;
     }
 
     /* Responsive styles for larger screens */
@@ -185,6 +187,11 @@ head: |
         padding: 1.5rem;
         margin: 2rem 0;
         font-size: 1.1rem;
+      }
+      #theory-root {
+        padding: 1.5rem;
+        max-width: 800px;
+        margin: 0 auto;
       }
     }
     @media (min-width: 1024px) {
@@ -351,10 +358,11 @@ head: |
       background: var(--bg-card);
       border: 1px solid var(--border-light);
       border-radius: 8px;
-      padding: 2rem;
-      max-width: 800px;
-      margin: 0 auto;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 0.5rem;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 0;
+      max-width: 100%;
     }
 
     .theory-content {
