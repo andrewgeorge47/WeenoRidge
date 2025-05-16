@@ -45,7 +45,7 @@ head: |
 
     /* Mobile-first base styles */
     .theory-container {
-      padding: 0.5rem;
+      padding: 0.25rem;
       width: 100%;
       margin: 0 auto;
       background: var(--bg-page);
@@ -56,25 +56,52 @@ head: |
       background: var(--bg-card);
       border: 1px solid var(--border-light);
       border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1rem;
+      padding: 0.75rem;
+      margin-bottom: 0.75rem;
       width: 100%;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       box-sizing: border-box;
     }
 
-    .theory-card h3 {
-      color: var(--primary);
-      margin-bottom: 0.75rem;
-      font-size: 1.25rem;
-      font-weight: 600;
+    .theory-title,
+    .theory-card h3,
+    .tldr-section h3 {
+      font-size: 1.1rem;
+      line-height: 1.2;
+      word-break: break-word;
     }
 
     .theory-card h4 {
-      color: var(--text-body);
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-      font-weight: 500;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tldr-section h3 {
+      font-size: 1rem;
+    }
+
+    .theory-header {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .view-toggle {
+      min-width: 0;
+      overflow-x: auto;
+      flex-shrink: 1;
+    }
+
+    .toggle-switch {
+      min-width: 50px;
+      max-width: 60px;
+    }
+
+    .quote-box {
+      padding: 0.5rem;
+      margin: 1rem 0;
+      font-size: 0.95rem;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .theory-card p {
@@ -139,47 +166,36 @@ head: |
       .theory-container {
         padding: 1rem;
       }
-
       .theory-card {
         padding: 1.5rem;
         margin-bottom: 1.5rem;
       }
-
-      .theory-card h3 {
+      .theory-title,
+      .theory-card h3,
+      .tldr-section h3 {
         font-size: 1.5rem;
       }
-
       .theory-card h4 {
         font-size: 1.2rem;
       }
-
-      .theory-card p {
-        font-size: 1rem;
+      .tldr-section h3 {
+        font-size: 1.2rem;
       }
-
-      .explore-btn, .back-btn {
-        width: auto;
-        padding: 0.75rem 1.5rem;
-        font-size: 1rem;
+      .quote-box {
+        padding: 1.5rem;
+        margin: 2rem 0;
+        font-size: 1.1rem;
       }
     }
-
     @media (min-width: 1024px) {
       .theory-container {
         padding: 2rem;
         max-width: 1200px;
       }
-
       .theory-card {
         max-width: 800px;
         margin-left: auto;
         margin-right: auto;
-        padding: 2rem;
-      }
-
-      #theory-root {
-        max-width: 800px;
-        margin: 0 auto;
         padding: 2rem;
       }
     }
