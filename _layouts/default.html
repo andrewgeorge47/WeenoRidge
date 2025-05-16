@@ -27,13 +27,40 @@
     body { font-family: 'Work Sans', sans-serif; color: #19364B; line-height: 1.6; }
     h1, h2, h3 { font-family: 'Arvo', serif; margin-bottom: 1rem; }
     a { color: #2D7E7B; text-decoration: none; }
-    .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .container, .site-content {
+      width: 100%;
+      max-width: 100%;
+      padding: 0 0.5rem;
+      box-sizing: border-box;
+    }
+    @media (min-width: 640px) {
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        padding: 0 20px;
+      }
+      .site-content {
+        padding: 2rem 0 4rem;
+      }
+    }
     .site-header { background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); padding: 1rem 0; }
     .site-header .container { display: flex; justify-content: space-between; align-items: center; }
     .main-nav ul { display: flex; list-style: none; }
     .main-nav li { margin-left: 1.5rem; }
-    .site-content { min-height: 70vh; padding: 2rem 0 4rem; }
     .site-footer { background-color: #19364B; color: #F6E8CA; padding: 3rem 0 1rem; }
+    /* Card font and margin adjustments for mobile */
+    .card, .problem-card, .tech-card, .partner-card {
+      padding: 1rem;
+      font-size: 1rem;
+      margin: 1rem 0;
+    }
+    @media (min-width: 640px) {
+      .card, .problem-card, .tech-card, .partner-card {
+        padding: 2rem;
+        font-size: 1.1rem;
+        margin: 2rem 0;
+      }
+    }
   </style>
   
   <!-- Additional head content from page -->
