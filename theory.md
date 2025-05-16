@@ -452,7 +452,7 @@ head: |
     }
   </style>
 scripts: |
-  <script src="{{ '/assets/js/dist/theory.bundle.js' | relative_url }}"></script>
+  <script src="assets/js/dist/theory.bundle.js"></script>
 ---
 
 <div class="theory-container">
