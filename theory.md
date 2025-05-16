@@ -45,20 +45,22 @@ head: |
 
     /* Mobile-first base styles */
     .theory-container {
-      padding: 1rem;
-      max-width: 1200px;
+      padding: 0.5rem;
+      width: 100%;
       margin: 0 auto;
       background: var(--bg-page);
+      box-sizing: border-box;
     }
 
     .theory-card {
       background: var(--bg-card);
       border: 1px solid var(--border-light);
       border-radius: 8px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
       width: 100%;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
     }
 
     .theory-card h3 {
@@ -135,12 +137,12 @@ head: |
     /* Responsive styles for larger screens */
     @media (min-width: 640px) {
       .theory-container {
-        padding: 2rem;
+        padding: 1rem;
       }
 
       .theory-card {
-        padding: 2rem;
-        margin-bottom: 2rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
       }
 
       .theory-card h3 {
@@ -164,13 +166,15 @@ head: |
 
     @media (min-width: 1024px) {
       .theory-container {
-        padding: 4rem 2rem;
+        padding: 2rem;
+        max-width: 1200px;
       }
 
       .theory-card {
         max-width: 800px;
         margin-left: auto;
         margin-right: auto;
+        padding: 2rem;
       }
 
       #theory-root {
