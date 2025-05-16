@@ -1,22 +1,58 @@
 # Site settings
-title: Weeno Ridge LLC
-email: andrewgeorge47@gmail.com
-description: >-
-  Weeno Ridge LLC is the parent company for several interconnected initiatives 
-  that combine science engagement, community development, and personal growth.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://weenoridge.com" # your domain
+title: Weeno Ridge Golf
+description: Golf Practice Planner
+baseurl: ""
+url: ""
 
 # Build settings
 markdown: kramdown
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-sass-converter
 
-# Exclude from processing
+# Exclude files from processing
 exclude:
   - Gemfile
   - Gemfile.lock
   - node_modules
   - vendor
+  - .git
   - .gitignore
+
+# Server settings
+port: 4000
+host: localhost
+open_url: false
+
+# Logger settings
+logger:
+  level: info
+  format: "%Y-%m-%d %H:%M:%S"
+  output: STDOUT
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+# Collections
+collections:
+  planner:
+    output: true
+    permalink: /planner/:path/
+
+# Sass settings
+sass:
+  style: compressed
+  load_paths:
+    - _sass
+    - node_modules

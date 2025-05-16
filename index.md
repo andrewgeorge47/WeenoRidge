@@ -14,12 +14,11 @@ title: Weeno Ridge LLC
   <div class="container">
     <div class="hero-content">
       <div class="hero-text">
-        <h1>Welcome to Weeno Ridge LLC</h1>
-        <p>Combining science engagement, community development, and personal growth through our interconnected initiatives.</p>
-        <a href="/about" class="btn">Learn More About Us</a>
+        <h1 class="text-4xl font-bold mb-4">Welcome to Weeno Ridge LLC</h1>
+        <p class="text-xl leading-relaxed max-w-2xl">Combining science engagement, community development, and personal growth through our interconnected initiatives.</p>
       </div>
       <div class="hero-image">
-        <img src="/assets/images/weeno-ridge-illustration.jpg" alt="Weeno Ridge - Fox with telescope looking at stars">
+        <img src="/assets/images/weeno-ridge-illustration.jpg" alt="Weeno Ridge - Fox with telescope looking at stars" class="rounded-lg shadow-xl">
       </div>
     </div>
   </div>
@@ -30,35 +29,21 @@ title: Weeno Ridge LLC
   
   <div class="initiative-list">
     <div class="initiative-item">
-      <h3>Measured: Science in the Open</h3>
-      <p>Science engagement through our Innovation Mobile Lab and community programming.</p>
-      <a href="/measured">Learn More →</a>
+      <h3>Voluntageous</h3>
+      <p>Making volunteering contagious and collaborative through innovative community engagement and digital tools.</p>
+      <a href="https://voluntageous.com">Learn More →</a>
     </div>
     
     <div class="initiative-item">
-      <h3>Neighborhood National No. 5</h3>
-      <p>A golf simulator membership and experimental club model focused on community.</p>
-      <a href="/neighborhood">Learn More →</a>
+      <h3>Vivolere</h3>
+      <p>Building digital infrastructure with transparency, honesty, and autonomy at its core.</p>
+      <a href="https://vivolere.com">Learn More →</a>
     </div>
     
     <div class="initiative-item">
       <h3>GolfOS</h3>
-      <p>A mindset-driven, amateur-focused golf improvement system.</p>
-      <a href="/golfos">Learn More →</a>
+      <p>Creating a golf community focused on improvement through simulator sharing and Neighborhood National integration.</p>
+      <a href="/planner">Learn More →</a>
     </div>
   </div>
-  
-  <div class="cta-section">
-    <h2>Ready to Connect?</h2>
-    <p>We'd love to hear from you about any of our initiatives.</p>
-    <a href="/contact" class="btn">Contact Us</a>
-  </div>
-  <hr>
-<section>
-  <h3>Innovation Mobile Lab: Program and Brand Ownership</h3>
-  <p style="max-width: 800px;">
-    The Innovation Mobile Lab brand and educational programming were created and are operated by Weeno Ridge LLC. While the mobile vehicle was generously funded by United Way of Franklin County, Weeno Ridge independently developed the Innovation Lab's public services, curriculum, and operational model. We retain full ownership of the Innovation Mobile Lab name, identity, and community engagement activities. The Innovation Mobile Lab is a Weeno Ridge program, hosted independently at <a href="https://innovationmobilelab.com">innovationmobilelab.com</a>
-  </p>
-</section>
-
 </div>
