@@ -4,6 +4,7 @@ _site/
 .jekyll-metadata
 dist/
 build/
+!assets/js/dist/
 
 # Dependencies
 node_modules/
