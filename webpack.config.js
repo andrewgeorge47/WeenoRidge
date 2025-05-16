@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   entry: './assets/js/theory.js',
   output: {
-    path: path.resolve(__dirname, '_site/assets/js/dist'),
+    path: path.resolve(__dirname, 'assets/js/dist'),
     filename: 'theory.bundle.js'
   },
   module: {
