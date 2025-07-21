@@ -1,0 +1,43 @@
+name: Consulting Form Handler
+
+on:
+  repository_dispatch:
+    types: [consulting_form_submission]
+
+jobs:
+  process-submission:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Process form submission
+        env:
+          CONSULTING_PAT: ${{ secrets.CONSULTING_PAT }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          NOTIFICATION_EMAIL: ${{ secrets.NOTIFICATION_EMAIL }}
+          CONSULTING_REPO: ${{ secrets.CONSULTING_REPO }}
+        run: |
+          node scripts/process-submission.js "${{ toJSON(github.event.client_payload) }}"
+          
+      - name: Update social proof data
+        run: |
+          node scripts/update-social-proof.js
+          
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Update social proof data" || exit 0
+          git push 

@@ -1,0 +1,185 @@
+---
+layout: default
+title: Pay-If-It-Helps Consulting
+permalink: /consulting/
+description: Get personalized consulting help from Andrew George. Pay only if it helps you achieve your goals.
+head: |
+  <meta property="og:title" content="Pay-If-It-Helps Consulting | Weeno Ridge LLC">
+  <meta property="og:description" content="Get personalized consulting help from Andrew George. Pay only if it helps you achieve your goals.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}/consulting/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/assets/css/consulting.css">
+scripts: |
+  <script src="/assets/js/consulting.js" defer></script>
+---
+
+<section class="consulting-hero">
+  <div class="container">
+    <h1>Pay-If-It-Helps: Strategy and Systems Support with No Strings Attached</h1>
+    <p>Get personalized help with your career, business, or personal challenges. You only pay if the advice helps you achieve your goals.</p>
+  </div>
+</section>
+
+<section class="video-section">
+  <div class="container">
+    <div class="video-placeholder">
+      <p>Video Introduction Coming Soon</p>
+    </div>
+    <p class="transparency-note">This is a transparent, no-strings-attached approach to consulting. You decide the value, and you only pay if you find the help valuable.</p>
+  </div>
+</section>
+
+<section class="social-proof-section">
+  <div class="container">
+    <h2>Recent Success Stories</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number" id="totalHelped">0</div>
+        <div class="stat-label">People Helped</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="averageRating">0</div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="responseRate">0%</div>
+        <div class="stat-label">Response Rate</div>
+      </div>
+    </div>
+
+    <div class="recent-submissions">
+      <h3>Recent Submissions</h3>
+      <div class="submission-list" id="recentSubmissionsList">
+        <!-- Recent submissions will be loaded here -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="form-container">
+  <div class="container">
+    <form id="helpForm">
+      <!-- Question 1: Type of help -->
+      <div class="form-section">
+        <label>What kind of help do you need?</label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" name="help-type" value="thinking" id="thinking">
+            <label for="thinking">I need help thinking something through</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="help-type" value="making" id="making">
+            <label for="making">I need help making something (visual, doc, mockup, site)</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Making path -->
+      <div id="making-path" class="form-section hidden">
+        <label for="build-description">What do you need built or visualized?</label>
+        <textarea name="build-description" id="build-description" placeholder="Diagram, visual explainer, landing page, presentation, mockup... be specific about what you envision."></textarea>
+        
+        <div style="margin-top: 2rem;">
+          <label>Who's going to see this?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="making-audience" value="public" id="public">
+              <label for="public">The public</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="making-audience" value="decision-maker" id="decision-maker">
+              <label for="decision-maker">A decision-maker</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="making-audience" value="skeptical" id="skeptical">
+              <label for="skeptical">A skeptical stakeholder</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="making-audience" value="internal" id="internal">
+              <label for="internal">Internal team</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="making-audience" value="unsure" id="unsure">
+              <label for="unsure">Not sure yet</label>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 2rem;">
+          <label>Any sketches, notes, content, or raw ideas?</label>
+          <div class="file-upload" onclick="document.getElementById('making-files').click()">
+            <input type="file" id="making-files" name="making-files" multiple accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.sketch,.fig">
+            <p>📎 Click to upload files or add links<br><small>Sketches, wireframes, inspiration, content—anything that helps</small></p>
+          </div>
+          <input type="text" name="reference-links" placeholder="Or paste any relevant links here..." style="margin-top: 1rem;">
+        </div>
+      </div>
+
+      <!-- Shared final section -->
+      <div id="final-section" class="form-section hidden">
+        <div style="margin-bottom: 2rem;">
+          <label for="additional-info">Additional information, context, or details:</label>
+          <textarea name="additional-info" id="additional-info" placeholder="Anything else that might be helpful for me to know? Timeline, constraints, background context, specific concerns, etc."></textarea>
+          <div class="prompt-text">Feel free to share whatever context might help me give you a more useful response.</div>
+        </div>
+
+        <div style="margin-bottom: 2rem;">
+          <label for="estimated-value">What would this kind of help typically be worth to you?</label>
+          <input type="text" name="estimated-value" id="estimated-value" placeholder="e.g., $200, $50-100, a few hundred, not sure">
+          <div class="prompt-text">
+            <strong>Important:</strong> I don't see this number and it has zero impact on my decision to work on your project. 
+            After I deliver my response, you'll rate its helpfulness (I won't see this either), then you'll see your original estimate 
+            and can choose what to pay—including nothing. However, if you pay nothing and don't request modifications, 
+            you won't be able to make new requests until one of those conditions changes.
+          </div>
+        </div>
+
+        <div style="margin-bottom: 2rem;">
+          <label for="email">Email I can send your response to: *</label>
+          <input type="email" name="email" id="email" required placeholder="your@email.com">
+        </div>
+
+        <div class="checkbox-container">
+          <input type="checkbox" name="consent" id="consent" required>
+          <label for="consent">
+            <strong>I understand:</strong> Andrew will review what I send and respond if he thinks he can help. If his response is useful, I'll pay what I believe it was worth. No payment required in advance, but no free work beyond the first interaction.
+          </label>
+        </div>
+
+        <div style="margin-top: 2rem;">
+          <label for="referral">(Optional) How'd you find this page?</label>
+          <input type="text" name="referral" id="referral" placeholder="Social media, referral, search, etc.">
+        </div>
+
+        <button type="submit" class="submit-btn">Send My Request</button>
+      </div>
+    </form>
+
+    <div id="success-message" class="success-message">
+      <h3>Thanks—I'll take a look!</h3>
+      <p>I'll get back to you within 3 days if I think I can offer something meaningful. You'll get a video reply with either a recommendation, a solution, or next steps.</p>
+      <p style="margin-top: 1rem;"><strong>No expectations beyond respect.</strong></p>
+    </div>
+  </div>
+</section>
+
+<div id="successModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Request Submitted!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Thank you for your submission! I'll review your request and get back to you soon.</p>
+        <p>You'll receive an email when your response is ready.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> 

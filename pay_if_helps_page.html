@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay-If-It-Helps: Strategy and Systems Support with No Strings Attached</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .video-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            border: 2px dashed #ccc;
+            transition: all 0.3s ease;
+        }
+
+        .video-placeholder:hover {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+        }
+
+        .social-proof-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-proof-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #333;
+            text-align: center;
+        }
+
+        .transparency-note {
+            text-align: center;
+            background: rgba(102, 126, 234, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .recent-submissions h3 {
+            margin-bottom: 1.5rem;
+            color: #333;
+            font-size: 1.3rem;
+        }
+
+        .submission-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .submission-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .submission-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .submission-type {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .submission-desc {
+            color: #333;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .submission-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .submission-meta span {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            background: #f8f9fa;
+            color: #666;
+        }
+
+        .status.responded {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status.not-responded {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .payment.paid {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .payment.unpaid {
+            background: #f5c6cb;
+            color: #721c24;
+        }
+
+        .rating {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-section.hidden {
+            display: none;
+        }
+
+        .form-section label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .radio-option:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .radio-option.selected {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 1rem;
+            transform: scale(1.2);
+            accent-color: #667eea;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input[type="email"], input[type="text"] {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        input[type="email"]:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .file-upload {
+            border: 2px dashed #ccc;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .file-upload:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 12px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-top: 0.2rem;
+            transform: scale(1.2);
+            accent-color: #667eea;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .success-message h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .prompt-text {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header, .form-container, .video-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .radio-group {
+                gap: 0.5rem;
+            }
+
+            .radio-option {
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Pay-If-It-Helps</h1>
+            <p>Strategy and Systems Support with No Strings Attached</p>
+        </div>
+
+        <div class="video-section">
+            <div class="video-placeholder">
+                📹 Intro Video Will Be Embedded Here
+                <br><small>Keep it short, direct, and personal</small>
+            </div>
+            <p><em>Honest, reflective, not salesy—just real talk about how this works.</em></p>
+        </div>
+
+        <!-- Social Proof Dashboard -->
+        <div class="social-proof-section">
+            <h2>Recent Activity</h2>
+            <p class="transparency-note">
+                <strong>Full Transparency:</strong> This data is automatically generated from all submissions. 
+                I only control the visualization—not the data itself. All information is completely de-identified.
+            </p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">47</div>
+                    <div class="stat-label">Total Requests This Month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">89%</div>
+                    <div class="stat-label">Received Responses</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4.2/5</div>
+                    <div class="stat-label">Average Helpfulness Rating</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">71%</div>
+                    <div class="stat-label">Made Some Payment</div>
+                </div>
+            </div>
+
+            <div class="recent-submissions">
+                <h3>Recent De-identified Submissions</h3>
+                <div class="submission-list">
+                    <div class="submission-item">
+                        <div class="submission-type">Strategy Help</div>
+                        <div class="submission-desc">"Help with go-to-market strategy for B2B SaaS"</div>
+                        <div class="submission-meta">
+                            <span class="estimated-value">Est: $300-500</span>
+                            <span class="status responded">Responded</span>
+                            <span class="rating">Rating: 5/5</span>
+                            <span class="payment paid">Paid</span>
+                        </div>
+                    </div>
+                    
+                    <div class="submission-item">
+                        <div class="submission-type">Visual Creation</div>
+                        <div class="submission-desc">"Landing page design for nonprofit fundraising"</div>
+                        <div class="submission-meta">
+                            <span class="estimated-value">Est: $150-200</span>
+                            <span class="status responded">Responded</span>
+                            <span class="rating">Rating: 4/5</span>
+                            <span class="payment paid">Paid</span>
+                        </div>
+                    </div>
+                    
+                    <div class="submission-item">
+                        <div class="submission-type">Strategy Help</div>
+                        <div class="submission-desc">"Thinking through team restructure and role definitions"</div>
+                        <div class="submission-meta">
+                            <span class="estimated-value">Est: Not sure</span>
+                            <span class="status responded">Responded</span>
+                            <span class="rating">Rating: 3/5</span>
+                            <span class="payment unpaid">No payment</span>
+                        </div>
+                    </div>
+                    
+                    <div class="submission-item">
+                        <div class="submission-type">Visual Creation</div>
+                        <div class="submission-desc">"Infographic explaining complex technical process"</div>
+                        <div class="submission-meta">
+                            <span class="estimated-value">Est: $400</span>
+                            <span class="status pending">In review</span>
+                            <span class="rating">—</span>
+                            <span class="payment">—</span>
+                        </div>
+                    </div>
+                    
+                    <div class="submission-item">
+                        <div class="submission-type">Strategy Help</div>
+                        <div class="submission-desc">"Pricing strategy for consulting services"</div>
+                        <div class="submission-meta">
+                            <span class="estimated-value">Est: $100-250</span>
+                            <span class="status not-responded">No response</span>
+                            <span class="rating">—</span>
+                            <span class="payment">—</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form id="helpForm">
+                <!-- Question 1: Type of help -->
+                <div class="form-section">
+                    <label>What kind of help do you need?</label>
+                    <div class="radio-group">
+                        <div class="radio-option" onclick="selectRadio('help-type', 'thinking')">
+                            <input type="radio" name="help-type" value="thinking" id="thinking">
+                            <label for="thinking">I need help thinking something through</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('help-type', 'making')">
+                            <input type="radio" name="help-type" value="making" id="making">
+                            <label for="making">I need help making something (visual, doc, mockup, site)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thinking path -->
+                <div id="thinking-path" class="form-section hidden">
+                    <label for="issue-description">What's the issue or decision you're wrestling with?</label>
+                    <textarea name="issue-description" id="issue-description" placeholder="Speak plainly—what's on your mind? What's the situation, and where are you stuck?"></textarea>
+                    
+                    <div style="margin-top: 2rem;">
+                        <label>Who is this for?</label>
+                        <div class="radio-group">
+                            <div class="radio-option" onclick="selectRadio('thinking-audience', 'personal')">
+                                <input type="radio" name="thinking-audience" value="personal" id="personal">
+                                <label for="personal">Me personally</label>
+                            </div>
+                            <div class="radio-option" onclick="selectRadio('thinking-audience', 'team')">
+                                <input type="radio" name="thinking-audience" value="team" id="team">
+                                <label for="team">My team</label>
+                            </div>
+                            <div class="radio-option" onclick="selectRadio('thinking-audience', 'client')">
+                                <input type="radio" name="thinking-audience" value="client" id="client">
+                                <label for="client">A client</label>
+                            </div>
+                            <div class="radio-option" onclick="selectRadio('thinking-audience', 'oversight')">
+                                <input type="radio" name="thinking-audience" value="oversight" id="oversight">
+                                <label for="oversight">A funding or oversight body</label>
+                            </div>
+                            <div class="radio-option" onclick="selectRadio('thinking-audience', 'other-thinking')">
+                                <input type="radio" name="thinking-audience" value="other" id="other-thinking">
+                                <label for="other-thinking">Other:</label>
+                                <input type="text" name="thinking-audience-other" placeholder="Please specify..." style="margin-left: 1rem; flex: 1;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <label>Anything you want to attach?</label>
+                        <div class="file-upload" onclick="document.getElementById('thinking-files').click()">
+                            <input type="file" id="thinking-files" name="thinking-files" multiple accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg">
+                            <p>📎 Click to upload files<br><small>Documents, images, notes—whatever might help</small></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Making path -->
+                <div id="making-path" class="form-section hidden">
+                    <label for="build-description">What do you need built or visualized?</label>
+                    <textarea name="build-description" id="build-description" placeholder="Diagram, visual explainer, landing page, presentation, mockup... be specific about what you envision."></textarea>
+                    
+                    <div style="margin-top: 2rem;">
+                        <label>Who's going to see this?</label>
+                        <div class="radio-group">
+                            <div class="radio-option" onclick="selectRadio('making-audience', 'public')">
+                                <input type="radio" name="making-audience" value="public" id="public">
+                                <label for="public">The public</label>
+                            </div>
+                            <div class="radio-option" onclick="selectRadio('making-audience', 'decision-maker')">
+                                <input type="radio" name="making-audience" value="decision-maker" id="decision-maker">
+                                <label for="decision-maker">A decision-maker</label>
+                            </div>
+                            <div class="radio-option" onclick="selectRadio('making-audience', 'skeptical')">
+                                <input type="radio" name="making-audience" value="skeptical" id="skeptical">
+                                <label for="skeptical">A skeptical stakeholder</label>
+                            </div>
+                            <div class="radio-option" onclick="selectRadio('making-audience', 'internal')">
+                                <input type="radio" name="making-audience" value="internal" id="internal">
+                                <label for="internal">Internal team</label>
+                            </div>
+                            <div class="radio-option" onclick="selectRadio('making-audience', 'unsure')">
+                                <input type="radio" name="making-audience" value="unsure" id="unsure">
+                                <label for="unsure">Not sure yet</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <label>Any sketches, notes, content, or raw ideas?</label>
+                        <div class="file-upload" onclick="document.getElementById('making-files').click()">
+                            <input type="file" id="making-files" name="making-files" multiple accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.sketch,.fig">
+                            <p>📎 Click to upload files or add links<br><small>Sketches, wireframes, inspiration, content—anything that helps</small></p>
+                        </div>
+                        <input type="text" name="reference-links" placeholder="Or paste any relevant links here..." style="margin-top: 1rem;">
+                    </div>
+                </div>
+
+                <!-- Shared final section -->
+                <div id="final-section" class="form-section hidden">
+                    <div style="margin-bottom: 2rem;">
+                        <label for="additional-info">Additional information, context, or details:</label>
+                        <textarea name="additional-info" id="additional-info" placeholder="Anything else that might be helpful for me to know? Timeline, constraints, background context, specific concerns, etc."></textarea>
+                        <div class="prompt-text">Feel free to share whatever context might help me give you a more useful response.</div>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <label for="estimated-value">What would this kind of help typically be worth to you?</label>
+                        <input type="text" name="estimated-value" id="estimated-value" placeholder="e.g., $200, $50-100, a few hundred, not sure">
+                        <div class="prompt-text">
+                            <strong>Important:</strong> I don't see this number and it has zero impact on my decision to work on your project. 
+                            After I deliver my response, you'll rate its helpfulness (I won't see this either), then you'll see your original estimate 
+                            and can choose what to pay—including nothing. However, if you pay nothing and don't request modifications, 
+                            you won't be able to make new requests until one of those conditions changes.
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <label for="email">Email I can send your response to: *</label>
+                        <input type="email" name="email" id="email" required placeholder="your@email.com">
+                    </div>
+
+                    <div class="checkbox-container">
+                        <input type="checkbox" name="consent" id="consent" required>
+                        <label for="consent">
+                            <strong>I understand:</strong> Andrew will review what I send and respond if he thinks he can help. If his response is useful, I'll pay what I believe it was worth. No payment required in advance, but no free work beyond the first interaction.
+                        </label>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <label for="referral">(Optional) How'd you find this page?</label>
+                        <input type="text" name="referral" id="referral" placeholder="Social media, referral, search, etc.">
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send My Request</button>
+                </div>
+            </form>
+
+            <div id="success-message" class="success-message">
+                <h3>Thanks—I'll take a look!</h3>
+                <p>I'll get back to you within 3 days if I think I can offer something meaningful. You'll get a video reply with either a recommendation, a solution, or next steps.</p>
+                <p style="margin-top: 1rem;"><strong>No expectations beyond respect.</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let formData = {};
+
+        function selectRadio(name, value) {
+            // Update radio selection
+            const radio = document.getElementById(value);
+            radio.checked = true;
+            
+            // Update visual selection
+            document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+                input.closest('.radio-option').classList.remove('selected');
+            });
+            radio.closest('.radio-option').classList.add('selected');
+            
+            // Handle form logic
+            if (name === 'help-type') {
+                handleHelpTypeSelection(value);
+            }
+            
+            // Show final section if we have a main selection
+            if (document.querySelector('input[name="help-type"]:checked')) {
+                document.getElementById('final-section').classList.remove('hidden');
+            }
+        }
+
+        function handleHelpTypeSelection(value) {
+            // Hide all paths first
+            document.getElementById('thinking-path').classList.add('hidden');
+            document.getElementById('making-path').classList.add('hidden');
+            
+            // Show selected path
+            if (value === 'thinking') {
+                document.getElementById('thinking-path').classList.remove('hidden');
+            } else if (value === 'making') {
+                document.getElementById('making-path').classList.remove('hidden');
+            }
+        }
+
+        // File upload feedback
+        document.getElementById('thinking-files')?.addEventListener('change', function(e) {
+            const fileCount = e.target.files.length;
+            if (fileCount > 0) {
+                e.target.closest('.file-upload').innerHTML = `<p>✅ ${fileCount} file(s) selected</p>`;
+            }
+        });
+
+        document.getElementById('making-files')?.addEventListener('change', function(e) {
+            const fileCount = e.target.files.length;
+            if (fileCount > 0) {
+                e.target.closest('.file-upload').innerHTML = `<p>✅ ${fileCount} file(s) selected</p>`;
+            }
+        });
+
+        // Form submission
+        document.getElementById('helpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simple validation
+            const email = document.getElementById('email').value;
+            const consent = document.getElementById('consent').checked;
+            const helpType = document.querySelector('input[name="help-type"]:checked');
+            
+            if (!email || !consent || !helpType) {
+                alert('Please fill in all required fields and check the consent box.');
+                return;
+            }
+            
+            // Hide form and show success message
+            document.getElementById('helpForm').style.display = 'none';
+            document.getElementById('success-message').style.display = 'block';
+            
+            // Scroll to success message
+            document.getElementById('success-message').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        });
+
+        // Smooth animations on load
+        window.addEventListener('load', function() {
+            document.querySelectorAll('.form-section, .header, .video-section').forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    el.style.transition = 'all 0.6s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

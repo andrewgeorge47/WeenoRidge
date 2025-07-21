@@ -1,0 +1,146 @@
+/* Calendar Integration Styles */
+.calendar-status {
+    border: 1px dashed #ccc;
+    transition: all 0.3s ease;
+}
+
+.calendar-status.connected {
+    border-color: #6BBCB3;
+    background-color: rgba(107, 188, 179, 0.1) !important;
+}
+
+.calendar-event {
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
+    background-color: rgba(25, 54, 75, 0.1);
+    border-left: 3px solid #D15B27;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.activity-block.has-conflict {
+    opacity: 0.7;
+    position: relative;
+}
+
+.activity-block.has-conflict::after {
+    content: "⚠️";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 12px;
+}
+
+.activity-with-time {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.activity-time-slot {
+    font-size: 0.7rem;
+    color: #D15B27;
+    background-color: rgba(209, 91, 39, 0.1);
+    padding: 0.1rem 0.3rem;
+    border-radius: 2px;
+}
+
+/* Modal customizations */
+.modal-content {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    background-color: #F6E8CA;
+    color: #19364B;
+    border-bottom: 1px solid rgba(25, 54, 75, 0.1);
+}
+
+.modal-title {
+    color: #2D7E7B;
+    font-family: 'Arvo', serif;
+    font-weight: 700;
+}
+
+.form-check-input:checked {
+    background-color: #2D7E7B;
+    border-color: #2D7E7B;
+}
+
+.btn-close:focus {
+    box-shadow: 0 0 0 0.25rem rgba(45, 126, 123, 0.25);
+}
+
+/* Calendar integration buttons */
+#exportCalendarBtn, 
+#connectCalendarBtn {
+    transition: all 0.3s ease;
+}
+
+#exportCalendarBtn.disabled, 
+#connectCalendarBtn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#exportCalendarBtn.btn-success,
+#connectCalendarBtn.btn-success {
+    background-color: #6BBCB3;
+    border-color: #6BBCB3;
+    color: white;
+}
+
+/* Tooltip for calendar events */
+.calendar-tooltip {
+    position: absolute;
+    background-color: #19364B;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    z-index: 1000;
+    max-width: 250px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.calendar-tooltip.show {
+    opacity: 1;
+}
+
+.calendar-tooltip-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px;
+    border-color: transparent transparent #19364B transparent;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Busy time indicator */
+.busy-time-indicator {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: rgba(209, 91, 39, 0.2);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: #D15B27;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 0.25rem;
+}

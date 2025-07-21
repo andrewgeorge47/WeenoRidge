@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weeno Consulting Admin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            background: #19364B;
+            color: white;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .header h1 {
+            text-align: center;
+            font-size: 2rem;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .section h2 {
+            color: #19364B;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #2D7E7B;
+            padding-bottom: 0.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        button {
+            background: #2D7E7B;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-right: 1rem;
+        }
+        
+        button:hover {
+            background: #1a5a57;
+        }
+        
+        .submissions-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .submission-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            border-left: 4px solid #2D7E7B;
+        }
+        
+        .submission-meta {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        .status-pending {
+            color: #f39c12;
+        }
+        
+        .status-completed {
+            color: #27ae60;
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Weeno Consulting Admin</h1>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div id="alerts"></div>
+        
+        <!-- Social Proof Management -->
+        <div class="section">
+            <h2>Social Proof Management</h2>
+            <form id="socialProofForm">
+                <div class="form-group">
+                    <label for="totalHelped">Total People Helped</label>
+                    <input type="number" id="totalHelped" name="totalHelped" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="averageRating">Average Rating</label>
+                    <input type="number" id="averageRating" name="averageRating" min="0" max="5" step="0.1" required>
+                </div>
+                <div class="form-group">
+                    <label for="responseRate">Response Rate (%)</label>
+                    <input type="number" id="responseRate" name="responseRate" min="0" max="100" required>
+                </div>
+                <button type="submit">Update Social Proof</button>
+            </form>
+        </div>
+        
+        <!-- Recent Submissions -->
+        <div class="section">
+            <h2>Recent Submissions</h2>
+            <div id="submissionsList" class="submissions-list">
+                <p>Loading submissions...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:3000' 
+            : 'https://your-render-app.onrender.com'; // Update with your actual URL
+        
+        const ADMIN_KEY = prompt('Enter admin key:');
+        
+        // Load social proof data
+        async function loadSocialProof() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/consulting/social-proof`);
+                const data = await response.json();
+                
+                document.getElementById('totalHelped').value = data.total_helped || 0;
+                document.getElementById('averageRating').value = data.average_rating || 0;
+                document.getElementById('responseRate').value = data.response_rate || 0;
+            } catch (error) {
+                showAlert('Error loading social proof data', 'error');
+            }
+        }
+        
+        // Update social proof
+        document.getElementById('socialProofForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = {
+                total_helped: parseInt(formData.get('totalHelped')),
+                average_rating: parseFloat(formData.get('averageRating')),
+                response_rate: parseInt(formData.get('responseRate'))
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/consulting/social-proof`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-admin-key': ADMIN_KEY
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    showAlert('Social proof updated successfully!', 'success');
+                } else {
+                    throw new Error('Failed to update social proof');
+                }
+            } catch (error) {
+                showAlert('Error updating social proof', 'error');
+            }
+        });
+        
+        // Load recent submissions
+        async function loadSubmissions() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/consulting/submissions?limit=10`, {
+                    headers: {
+                        'x-admin-key': ADMIN_KEY
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch submissions');
+                }
+                
+                const submissions = await response.json();
+                const submissionsList = document.getElementById('submissionsList');
+                
+                if (submissions.length === 0) {
+                    submissionsList.innerHTML = '<p>No submissions yet.</p>';
+                    return;
+                }
+                
+                submissionsList.innerHTML = submissions.map(submission => `
+                    <div class="submission-item">
+                        <h4>${submission.help_type}</h4>
+                        <div class="submission-meta">
+                            <span>ID: ${submission.submission_id}</span>
+                            <span>Status: <span class="status-${submission.status}">${submission.status}</span></span>
+                            <span>Created: ${new Date(submission.created_at).toLocaleDateString()}</span>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                document.getElementById('submissionsList').innerHTML = '<p>Error loading submissions.</p>';
+            }
+        }
+        
+        // Show alerts
+        function showAlert(message, type) {
+            const alertsContainer = document.getElementById('alerts');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            
+            alertsContainer.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+        
+        // Initialize
+        loadSocialProof();
+        loadSubmissions();
+    </script>
+</body>
+</html> 
