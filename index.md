@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Andrew George - Strategy & Systems Consultant
+title: Andrew Makohon-George - Strategy & Systems Consultant
 ---
 
 <div class="hero space-theme">
@@ -14,7 +14,7 @@ title: Andrew George - Strategy & Systems Consultant
   <div class="container">
     <div class="hero-content">
       <div class="hero-text">
-        <h1 class="text-4xl font-bold mb-4">Andrew George</h1>
+        <h1 class="text-4xl font-bold mb-4">Andrew Makohon-George</h1>
         <p class="text-xl leading-relaxed max-w-2xl">Strategy consultant and systems architect helping businesses and individuals solve complex problems through innovative thinking and practical implementation.</p>
         <div class="hero-cta">
           <a href="#work" class="btn btn-primary">View My Work</a>
@@ -22,7 +22,7 @@ title: Andrew George - Strategy & Systems Consultant
         </div>
       </div>
       <div class="hero-image">
-        <img src="/assets/images/weeno-ridge-illustration.jpg" alt="Andrew George - Strategy Consultant" class="rounded-lg shadow-xl">
+        <img src="/assets/images/weeno-ridge-illustration.jpg" alt="Andrew Makohon-George - Strategy Consultant" class="rounded-lg shadow-xl">
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Contact - Andrew George
+title: Contact - Andrew Makohon-George
 permalink: /contact/
 ---
 
